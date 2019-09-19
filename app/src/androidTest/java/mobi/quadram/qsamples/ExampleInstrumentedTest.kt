@@ -31,24 +31,19 @@ class ExampleInstrumentedTest {
 
     @Test
     fun checkTextOfView() {
-        activityScenarioRule.scenario.onActivity {
-            onView(withId(R.id.text)).check { view, noViewFoundException ->
-                assertTrue(hasText(view as TextView, "Hi"))
-            }
+        onView(withId(R.id.text)).check { view, noViewFoundException ->
+            assertTrue(hasText(view as TextView, "Hi"))
         }
 
     }
 
     @Test
     fun checkSecondTextAfterClick() {
-        activityScenarioRule.scenario.onActivity {
-            onView(withId(R.id.button)).perform(click())
+        onView(withId(R.id.button)).perform(click())
 
-            onView(withId(R.id.text)).check { view, noViewFoundException ->
-                assertTrue(hasText(view as TextView, "Hi 2"))
-            }
+        onView(withId(R.id.text)).check { view, noViewFoundException ->
+            assertTrue(hasText(view as TextView, "Hi 2"))
         }
-
     }
 
     private fun hasText(it: TextView, str: String) = it.text?.toString()?.equals(str) ?: false
