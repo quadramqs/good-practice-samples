@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -33,6 +34,18 @@ class ExampleInstrumentedTest {
         activityScenarioRule.scenario.onActivity {
             onView(withId(R.id.text)).check { view, noViewFoundException ->
                 assertTrue(hasText(view as TextView, "Hi"))
+            }
+        }
+
+    }
+
+    @Test
+    fun checkSecondTextAfterClick() {
+        activityScenarioRule.scenario.onActivity {
+            onView(withId(R.id.button)).perform(click())
+
+            onView(withId(R.id.text)).check { view, noViewFoundException ->
+                assertTrue(hasText(view as TextView, "Hi 2"))
             }
         }
 
